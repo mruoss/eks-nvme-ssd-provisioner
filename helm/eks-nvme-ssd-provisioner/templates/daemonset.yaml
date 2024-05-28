@@ -13,6 +13,10 @@ spec:
       labels:
         {{- include "eks-nvme-ssd-provisioner.selectorLabels" . | nindent 8 }}
     spec:
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       automountServiceAccountToken: {{ .Values.automountServiceAccountToken }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
